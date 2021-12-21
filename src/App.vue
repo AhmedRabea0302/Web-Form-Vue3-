@@ -1,13 +1,14 @@
 <template>
-  
+  <SignupForm />
 </template>
 
 <script>
+import SignupForm from './components/Signupform.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SignupForm,
   }
 }
 </script>
