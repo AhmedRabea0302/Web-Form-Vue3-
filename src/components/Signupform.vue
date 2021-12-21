@@ -5,9 +5,27 @@
 
       <label>Password</label>
       <input type="password" required v-model="password">
+
+      <label>Role:</label>
+      <select v-model="role">
+          <option value="developer">Web Developer</option>
+          <option value="designer">Web Designer</option>
+      </select>
+
+      <label>Skills:</label>
+      <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
+      <div v-for="skill in skills" :key="skill">{{skill}}</div>
+
+      <div class="terms">
+          <input type="checkbox" v-model="terms">
+          <label>Accept Terms and condtions</label>
+      </div>
+
+     
   </form>
 
-  <p>The Email: {{email}} - Password: {{password}}</p>
+  <p>The Email: {{email}} - Password: {{password}} - Role: {{role}}</p>
+  <p>{{names}}</p>
 </template>
 
 <script>
@@ -16,10 +34,24 @@ export default {
         return {
             email: '',
             password: '',
-
-
+            role: 'developer',
+            terms: false,
+            tempSkill: '',
+            skills: []
         }
     },
+
+    methods: {
+        addSkill(event) {
+            if(event.key === ',' && this.tempSkill) {
+                if(!this.skills.includes(this.tempSkill)) {
+                    this.skills.push(this.tempSkill);
+                }
+                this.tempSkill = '';
+                console.log(this.skills)
+            }
+        }
+    }
 
 }
 </script>
@@ -46,7 +78,7 @@ label {
 }
 
 
-input {
+input, select {
     display: block;
     padding: 10px 6px;
     width: 100%;
@@ -54,7 +86,14 @@ input {
     border: none;
     border-bottom: 1px solid #ddd;
     color: #555555;
+}
 
+input[type="checkbox"] {
+    display: inline-block;
+    width: 16px;
+    margin: 0 10px 0 0;
+    position: relative;
+    top: 2px;
 }
 
 </style>
